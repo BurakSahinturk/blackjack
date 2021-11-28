@@ -1,5 +1,5 @@
-var cards = [];
 var blackjackratio = 5;
+var cards = [];
 var dealerCards = [];
 var sum = 0;
 var dealerSum = 0;
@@ -30,7 +30,7 @@ var deckindex = 0;
 
 playerEl.textContent = player.name + ": $" + player.chips + " Pot: $" + pot;
 
-class kart {
+class Card {
     constructor (name, suit, cardvalue) {
     this.name = name;
     this.suit = suit;
@@ -43,19 +43,19 @@ for (let j=0; j<4; j++) {
     let suit = suits[j] ;
     for (let i=1; i<14; i++) {
         if (i===1) {
-            originalDeck.push(new kart("A", suit, 11))
+            originalDeck.push(new Card("A", suit, 11))
         }
         else if (i===11) {
-            originalDeck.push(new kart("V", suit, 10))
+            originalDeck.push(new Card("V", suit, 10))
         }
         else if (i===12) {
-            originalDeck.push(new kart("D", suit, 10))
+            originalDeck.push(new Card("D", suit, 10))
         }
         else if (i===13) {
-            originalDeck.push(new kart("R", suit, 10))
+            originalDeck.push(new Card("R", suit, 10))
         }
         else {
-            originalDeck.push(new kart(i, suit, i))
+            originalDeck.push(new Card(i, suit, i))
         }
     }
 };
@@ -106,7 +106,7 @@ function renderGame() {
     };
     sumEl.textContent = "Toplam: " + sum;
     if (sum <= 20) {
-        message = "Bir kart daha ister misin?"
+        message = "Bir Kart daha ister misin?"
     } else if (sum === 21) {
         message = "21! Tebrikler"
         hasBlackJack = true
@@ -128,7 +128,7 @@ function renderGame() {
 }
 
 function newCard() {
-    if (isAlive === true && hasBlackJack === false) {
+    if (isAlive && hasBlackJack === false) {
         let yeniKart = shuffledDeck[deckindex];
         if (yeniKart.name === "A") {aceRights++};
         deckindex ++;
@@ -147,42 +147,47 @@ function finishGame() {
     startButton.innerText = "YENİ OYUN";
     dealerTurn();
 };
-
-function dealerTurn() {
+function dealerTurn(){
     if (dealerSum>21 && dealerAceRights>0) {
         dealerSum -= 10;
         dealerAceRights --;
     }
-    if (dealerSum>18) {dealerDone()}
-    else if (dealerSum===18){
-        if (Math.random()<0.04) {dealerCard()}
-        else {dealerDone()}
+    if (dealerSum<12) {dealerCard()}
+    else {
+        switch (dealerSum) {
+            case 18:
+                if (Math.random()<0.04) {dealerCard()}
+                else {dealerDone()}
+                break;
+            case 17:
+                if (Math.random()<0.08) {dealerCard()}
+                else {dealerDone()}
+                break;
+            case 16:
+                if (Math.random()<0.3) {dealerCard()}
+                else {dealerDone()}
+                break;
+            case 15:
+                if (Math.random()<0.5) {dealerCard()}
+                else {dealerDone()}
+                break;
+            case 14:
+                if (Math.random()<0.7) {dealerCard()}
+                else {dealerDone()}
+                break;
+            case 13:
+                if (Math.random()<0.85) {dealerCard()}
+                else {dealerDone()}
+                break;
+            case 12:
+                if (Math.random()<0.92) {dealerCard()}
+                else {dealerDone()}
+                break;
+            default:
+                dealerDone()
+                break;
+        }
     }
-    else if (dealerSum===17){
-        if (Math.random()<0.08) {dealerCard()}
-        else {dealerDone()}
-    }
-    else if (dealerSum===16){
-        if (Math.random()<0.3) {dealerCard()}
-        else {dealerDone()}
-    }
-    else if (dealerSum===15){
-        if (Math.random()<0.5) {dealerCard()}
-        else {dealerDone()}
-    }
-    else if (dealerSum===14){
-        if (Math.random()<0.7) {dealerCard()}
-        else {dealerDone()}
-    }
-    else if (dealerSum===13){
-        if (Math.random()<0.85) {dealerCard()}
-        else {dealerDone()}
-    }
-    else if (dealerSum===12){
-        if (Math.random()<0.92) {dealerCard()}
-        else {dealerDone()}
-    }
-    else {dealerCard()}
 }
 
 function dealerCard() {
