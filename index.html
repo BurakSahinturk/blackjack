@@ -1,21 +1,32 @@
-<html>
-    <head>
-        <link rel="stylesheet" href="index.css">
-    </head>
-    <header>
-        <h1>Blackjack</h1>
-    </header>
-    <body>
-        <p id="message-el">Oynayalım mı?</p>
-        <p id="cards-el"><br></p>
-        <p id="sum-el"><br></p>
-        <button id="start-btn" onclick="startGame()">OYUNA BAŞLA</button>
-        <button id="new-card-btn" onclick="newCard()">KART AL</button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Silly Ass Blackjack Game - Introduction Page</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<header>
+    <h1>Blackjack</h1>
+</header>
+<nav>
+</nav>
+<body>
+<!--Couldn't make this work yet... but it is to be worked on
+         <form>
+        <label for="player-name">Adınız:</label><br>
+        <input type="text" name="player-name" id="player-name-input" value="" placeholder="Oyuncu"><br>
+        <input type="submit" id="submit-btn" value="Haydi Başlayalım!">
+    </form> -->
+    <div>
+        <p>Adınız:</p>
         <br>
-        <button id="done-btn" onclick="finishGame()">TAMAM</button>
-        <p id="player-el"></p>
-        <p id="dealer-cards-el"></p>
-        <p id="dealer-sum-el"></p>
-        <script src="index.js"></script>
-    </body>
+        <input type="text" id="player-name-input" placeholder="Oyuncu">
+        <br>
+        <button id="submit-btn">Haydi Başlayalım!</button>
+    </div>
+
+    <script src="entry.js"></script>
+</body>
 </html>

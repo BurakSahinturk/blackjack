@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>A Silly Ass Blackjack Game - Main Page</title>
+        <link rel="stylesheet" href="index.css">
+    </head>
+    <header>
+        <h1>Blackjack</h1>
+    </header>
+    <body>
+        <p id="message-el">Oynayalım mı?</p>
+        <p id="cards-el"><br></p>
+        <p id="sum-el"><br></p>
+        <button id="start-btn" onclick="startGame()">OYUNA BAŞLA</button>
+        <button id="new-card-btn" onclick="newCard()">KART AL</button>
+        <br>
+        <button id="done-btn" onclick="finishGame()">TAMAM</button>
+        <div>Pot: $<input type="number" id="pot-input" value="10"></div>
+        <p id="player-el"></p>
+        <p id="dealer-cards-el"></p>
+        <p id="dealer-sum-el"></p>
+        <br>
+        <div id="record-board">
+            <p id="record-board"></p>
+        </div>
+        <script src="index.js"></script>
+    </body>
+</html>

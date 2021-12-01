@@ -22,16 +22,40 @@ h1 {
     font-style: italic;
 }
 
+#player-name-input {
+    margin-bottom: 5px;
+}
+
+#pot-input {
+    margin-top: 5px;
+    width: 50px;
+    height: 15px;
+}
+
 button {
-    color: #016f32;
+    color: black;
+    box-shadow: 6px 10px 10px -7px #3e7327;
     width: 150px;
-    background: goldenrod;
+    background: linear-gradient(to bottom, #619945 5%, #72b352 100%);
+    background-color: #619945;
     padding-top: 5px;
     padding-bottom: 5px;
     font-weight: bold;
-    border: none;
-    border-radius: 2px;
+    border: 1px solid #4b8f29;
+    display: inline-block;
+    cursor: pointer;
+    border-radius: 8px;
     margin-bottom: 2px;
     margin-top: 2px;
     text-align: center;
+    font-size: 18px;
+}
+
+button:hover {
+    background: linear-gradient(to bottom, #72b352 5%, #619945 100%);
+    background-color:#72b352;
+}
+button:active {
+	position:relative;
+	top:1px;
 }
