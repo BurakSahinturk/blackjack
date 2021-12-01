@@ -97,6 +97,7 @@ function startGame() {
         shuffledDeck = shuffle(originalDeck);
         aceRights = 0;
         dealerAceRights = 0;
+        potEl.setAttribute("disabled", "")
         let firstCard = shuffledDeck[0];
         if (firstCard.name === "A") {aceRights ++};
         let secondCard = shuffledDeck[1];
@@ -133,11 +134,13 @@ function renderGame() {
         hasBlackJack = true;
         player.chips += blackjackratio * pot;
         playerEl.textContent = player.name + ": $" + player.chips;
+        potEl.removeAttribute("disabled")
     } else {
         message = "Kaybettin!"
         isAlive = false;
         player.chips -= pot;
         playerEl.textContent = player.name + ": $" + player.chips;
+        potEl.removeAttribute("disabled")
     };
     messageEl.textContent = message;
     if (isAlive === false || hasBlackJack) {
@@ -166,6 +169,7 @@ function finishGame() {
     doneButton.style.display = "none";
     dealerCards = "Dealer Kartları:";
     startButton.innerText = "YENİ OYUN";
+    potEl.removeAttribute("disabled")
     dealerTurn();
 };
 function dealerTurn(){
