@@ -18,6 +18,16 @@ h1 {
     font-size: 56;
 }
 
+div {
+    margin: auto auto;
+    display: block;
+}
+
+.hands > img {
+    width:100px;
+    margin-left: -80px;
+}
+
 #message-el {
     font-style: italic;
 }
@@ -42,11 +52,10 @@ button {
     padding-bottom: 5px;
     font-weight: bold;
     border: 1px solid #4b8f29;
-    display: inline-block;
+    display: block;
     cursor: pointer;
     border-radius: 8px;
-    margin-bottom: 2px;
-    margin-top: 2px;
+    margin: 5px auto;
     text-align: center;
     font-size: 18px;
 }
@@ -58,4 +67,13 @@ button:hover {
 button:active {
 	position:relative;
 	top:1px;
+}
+
+#record-board {
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    right: 0;
+    width: 300px;
+    margin: auto;
 }

@@ -5,7 +5,7 @@ if (sessionStorage.getItem("username") !== null) {
 }
 
 submitButton.addEventListener("click", function() {
-    if (usernameInputEl.value === "") { 
+    if (usernameInputEl.value == "") { 
         sessionStorage.setItem("username", "Oyuncu");
     }
     else {
@@ -13,7 +13,6 @@ submitButton.addEventListener("click", function() {
     }
     window.open("main.html", "_self");
 })
-
 
 usernameInputEl.addEventListener("keyup", function(event) {
   if (event.keyCode === 13) {

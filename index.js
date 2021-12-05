@@ -1,7 +1,7 @@
 var blackjackratio = 5;
-var cards = [];
+var playerCards = [];
 var dealerCards = [];
-var sum = 0;
+var playerSum = 0;
 var dealerSum = 0;
 var hasBlackJack = false;
 var isAlive = false;
@@ -9,19 +9,18 @@ var aceRights = 0;
 var dealerAceRights = 0;
 var message = "";
 const messageEl = document.getElementById("message-el");
-const sumEl = document.getElementById("sum-el");
+const PlayerSumEl = document.getElementById("player-sum-el");
 const dealerSumEl = document.getElementById("dealer-sum-el");
-const cardsEl = document.getElementById("cards-el");
+const cardsEl = document.getElementById("player-cards-el");
 const dealerCardsEl = document.getElementById("dealer-cards-el");
 const potEl = document.getElementById("pot-input")
 const playerEl = document.getElementById("player-el");
 const startButton = document.getElementById("start-btn");
 const doneButton = document.getElementById("done-btn");
 const newCardButton = document.getElementById("new-card-btn");
-newCardButton.style.display = "none";
-doneButton.style.display = "none";
+const dealersFirstCardEl = document.getElementById("dealers-first-card")
 var player = {
-    name: JSON.parse(sessionStorage.getItem("username")),
+    name: sessionStorage.getItem("username"),
     chips: 100
 };
 var pot = parseFloat(potEl.value, 10);
@@ -29,17 +28,16 @@ var shuffledDeck = [];
 var originalDeck = [];
 var deckindex = 0;
 
-playerEl.textContent = player.name + ": $" + player.chips
+playerEl.textContent = player.name + ": $" + player.chips;
 
 if (localStorage.getItem("recordvalue") === null) {
-    localStorage.setItem("recordowner", "Hiçkimse")
-    localStorage.setItem("recordvalue", "0")
+    localStorage.setItem("recordowner", "Hiçkimse");
+    localStorage.setItem("recordvalue", "0");
 }
-const recordEl = document.getElementById("record-board")
-var recordOwner = localStorage.getItem("recordowner")
-var recordValue = parseFloat(localStorage.getItem("recordvalue"))
-recordEl.textContent = "Rekor: " + JSON.parse(recordOwner) + " ($" + recordValue + ")"
-
+const recordEl = document.getElementById("record-board");
+var recordOwner = localStorage.getItem("recordowner");
+var recordValue = parseFloat(localStorage.getItem("recordvalue"));
+recordEl.textContent = "Rekor: " + JSON.parse(recordOwner) + " ($" + recordValue + ")";
 
 class Card {
     constructor (name, suit, cardvalue) {
@@ -66,81 +64,85 @@ for (let j=0; j<4; j++) {
     for (let i=1; i<14; i++) {
         switch (i) {
             case 1: 
-                originalDeck.push(new Card("A", suit, 11))
+                originalDeck.push(new Card("A", suit, 11));
                 break;
             case 11:
-                originalDeck.push(new Card("V", suit, 10))
+                originalDeck.push(new Card("J", suit, 10));
                 break;
             case 12:
-                originalDeck.push(new Card("D", suit, 10))
+                originalDeck.push(new Card("Q", suit, 10));
                 break;
             case 13:
-                originalDeck.push(new Card("R", suit, 10))
+                originalDeck.push(new Card("K", suit, 10));
                 break;
             default:
-                originalDeck.push(new Card(i, suit, i))
+                originalDeck.push(new Card(i, suit, i));
                 break;
         }
     }
 };
 
-
-
 function startGame() {
-    pot = parseFloat(potEl.value, 10)
+    pot = parseFloat(potEl.value, 10);
     if (pot < 0 ) {
         message = "Bahis negatif bir sayı olamaz.";
         messageEl.textContent = message;
     }
     else {
         isAlive = true;
+        hasBlackJack = false;
         shuffledDeck = shuffle(originalDeck);
         aceRights = 0;
         dealerAceRights = 0;
-        potEl.setAttribute("disabled", "")
+        potEl.setAttribute("disabled", "");
+        clearDeck()
         let firstCard = shuffledDeck[0];
         if (firstCard.name === "A") {aceRights ++};
+        document.getElementById("first-card").setAttribute("src", "images/PNG-cards-1.3/" + firstCard.suit + firstCard.name + ".png")
+        document.getElementById("first-card").setAttribute("alt", firstCard.suit + " " + firstCard.name)
         let secondCard = shuffledDeck[1];
         if (secondCard.name === "A") {aceRights ++};
+        document.getElementById("second-card").setAttribute("src", "images/PNG-cards-1.3/" + secondCard.suit + secondCard.name + ".png")
+        document.getElementById("second-card").setAttribute("alt", secondCard.suit + " " + secondCard.name)
         deckindex = 2;
-        cards = [firstCard.suit, firstCard.name, secondCard.suit, secondCard.name];
-        sum = firstCard.cardvalue + secondCard.cardvalue;
-        dealerCards = [];
+        playerCards = [firstCard.suit, firstCard.name, secondCard.suit, secondCard.name];
+        playerSum = firstCard.cardvalue + secondCard.cardvalue;
         dealerCardsEl.innerText = dealerCards;
         dealerSum = 0;
         dealerSumEl.innerText = "";
         startButton.style.display = "none";
         newCardButton.style.display = "";
         doneButton.style.display = "";
-        hasBlackJack = false;
+        dealerNewCard();
         renderGame();
     }
 };
 
 function renderGame() {
-    cardsEl.textContent = "Kartların: "
-    for (let i = 0; i < cards.length; i=i+2) {
-        cardsEl.textContent += cards[i] + cards[i+1]+ " "
+    cardsEl.textContent = "Kartların: ";
+    for (let i = 0; i < playerCards.length; i=i+2) {
+        cardsEl.textContent += playerCards[i] + playerCards[i+1]+ " "
     };
-    if (sum>21 && cards.includes("A") && aceRights>0 ) {
-        sum -=10
-        aceRights--
+    if (playerSum>21 && playerCards.includes("A") && aceRights>0 ) {
+        playerSum -= 10;
+        aceRights--;
     };
-    sumEl.textContent = "Toplam: " + sum;
-    if (sum <= 20) {
-        message = "Bir Kart daha ister misin?"
-    } else if (sum === 21) {
-        message = "21! Tebrikler"
+    PlayerSumEl.textContent = "Toplam: " + playerSum;
+    if (playerSum <= 20) {
+        message = "Bir Kart daha ister misin?";
+    } else if (playerSum === 21) {
+        message = "21! Tebrikler";
         hasBlackJack = true;
         player.chips += blackjackratio * pot;
-        playerEl.textContent = player.name + ": $" + player.chips;
-        potEl.removeAttribute("disabled")
+        potEl.removeAttribute("disabled");
+        writeScore();
+        checkRecord();
     } else {
-        message = "Kaybettin!"
+        message = "Kaybettin!";
         isAlive = false;
         player.chips -= pot;
-        playerEl.textContent = player.name + ": $" + player.chips;
-        potEl.removeAttribute("disabled")
+        potEl.removeAttribute("disabled");
+        writeScore();
     };
     messageEl.textContent = message;
     if (isAlive === false || hasBlackJack) {
@@ -153,12 +155,17 @@ function renderGame() {
 
 function newCard() {
     if (isAlive && hasBlackJack === false) {
-        let yeniKart = shuffledDeck[deckindex];
-        if (yeniKart.name === "A") {aceRights++};
+        let addedCard = shuffledDeck[deckindex];
+        if (addedCard.name === "A") {aceRights++};
         deckindex ++;
-        sum += yeniKart.cardvalue;
-        cards.push(yeniKart.suit);
-        cards.push(yeniKart.name);
+        playerSum += addedCard.cardvalue;
+        playerCards.push(addedCard.suit);
+        playerCards.push(addedCard.name);
+        var img = document.createElement('img'); 
+        img.src = "images/PNG-cards-1.3/" + addedCard.suit + addedCard.name + ".png";
+        img.alt = addedCard.suit + " " + addedCard.name;
+        img.classList.add("added-card")
+        document.getElementById("player-hand").appendChild(img);
         renderGame();
     };
 };
@@ -167,84 +174,113 @@ function finishGame() {
     startButton.style.display = "";
     newCardButton.style.display ="none";
     doneButton.style.display = "none";
-    dealerCards = "Dealer Kartları:";
     startButton.innerText = "YENİ OYUN";
-    potEl.removeAttribute("disabled")
+    potEl.removeAttribute("disabled");
+    dealersFirstCardEl.style.display = "none"
     dealerTurn();
 };
+
 function dealerTurn(){
     if (dealerSum>21 && dealerAceRights>0) {
         dealerSum -= 10;
         dealerAceRights --;
     }
-    if (dealerSum<12) {dealerCard()}
+    if (dealerSum<12) {dealerTaps()}
     else {
         switch (dealerSum) {
             case 18:
-                if (Math.random()<0.04) {dealerCard()}
-                else {dealerDone()}
+                if (Math.random()<0.04) {dealerTaps()}
+                else {dealerWaves()};
                 break;
             case 17:
-                if (Math.random()<0.08) {dealerCard()}
-                else {dealerDone()}
+                if (Math.random()<0.08) {dealerTaps()}
+                else {dealerWaves()};
                 break;
             case 16:
-                if (Math.random()<0.3) {dealerCard()}
-                else {dealerDone()}
+                if (Math.random()<0.3) {dealerTaps()}
+                else {dealerWaves()};
                 break;
             case 15:
-                if (Math.random()<0.5) {dealerCard()}
-                else {dealerDone()}
+                if (Math.random()<0.5) {dealerTaps()}
+                else {dealerWaves()};
                 break;
             case 14:
-                if (Math.random()<0.7) {dealerCard()}
-                else {dealerDone()}
+                if (Math.random()<0.7) {dealerTaps()}
+                else {dealerWaves()};
                 break;
             case 13:
-                if (Math.random()<0.85) {dealerCard()}
-                else {dealerDone()}
+                if (Math.random()<0.85) {dealerTaps()}
+                else {dealerWaves()};
                 break;
             case 12:
-                if (Math.random()<0.92) {dealerCard()}
-                else {dealerDone()}
+                if (Math.random()<0.92) {dealerTaps()}
+                else {dealerWaves()};
                 break;
             default:
-                dealerDone()
+                dealerWaves();
                 break;
         }
     }
 }
 
-function dealerCard() {
-    yeniKart = shuffledDeck[deckindex];
-    if (yeniKart.name === "A") {dealerAceRights ++};
-    deckindex ++;
-    dealerSum += yeniKart.cardvalue;
-    dealerCards += yeniKart.suit + yeniKart.name + " ";
-    dealerCardsEl.textContent = dealerCards;
-    dealerSumEl.innerText = "Dealer Toplam: " + dealerSum;
+function dealerTaps() {
+    dealerNewCard();
     dealerTurn();
 }
+function dealerNewCard() {
+    addedCard = shuffledDeck[deckindex];
+    if (addedCard.name === "A") {dealerAceRights ++};
+    deckindex ++;
+    dealerSum += addedCard.cardvalue;
+    dealerCards += addedCard.suit + addedCard.name + " ";
+    dealerCardsEl.textContent = dealerCards;
+    dealerSumEl.innerText = "Dealer Toplam: " + dealerSum;
+    var img = document.createElement('img'); 
+    img.src = "images/PNG-cards-1.3/" + addedCard.suit + addedCard.name + ".png";
+    img.alt = addedCard.suit + " " + addedCard.name;
+    img.classList.add("added-card")
+    document.getElementById("dealer-hand").appendChild(img);
+}
 
-function dealerDone() {
-    if (dealerSum<sum || dealerSum>21) {
+function dealerWaves() {
+    if (dealerSum<playerSum || dealerSum>21) {
         message = "Kazandınız Tebrikler! Bir oyun daha?";
         player.chips += pot;
-        playerEl.textContent = player.name + ": $" + player.chips;
-        if (localStorage.getItem("recordvalue") < player.chips) {
-            localStorage.setItem("recordowner", JSON.stringify(player.name))
-            localStorage.setItem("recordvalue", JSON.stringify(player.chips))
-            message = "Şimdiye kadar kazandığınız en yüksek değer bu! Bir oyun daha?"
-            recordOwner = localStorage.getItem("recordowner")
-            recordValue = parseFloat(localStorage.getItem("recordvalue"))
-            recordEl.textContent = "Rekor: " + JSON.parse(recordOwner) + " ($" + recordValue + ")"
-        }
+        checkRecord();
+    }
+    else if (dealerSum === playerSum) {
+        message = "Berabere... Bir oyun daha?"
     }
     else {
-        isAlive=false;
-        message= "Üzgünüm kaybettiniz. Bir oyun daha?";
+        isAlive = false;
+        message = "Üzgünüm kaybettiniz. Bir oyun daha?";
         player.chips -= pot;
-        playerEl.textContent = player.name + ": $" + player.chips;
     }
+    writeScore();
     messageEl.textContent = message;
 };
+
+function clearDeck() {
+    dealerCards = []
+    while (document.querySelector(".added-card")) {
+        var discardedCards = document.querySelector(".added-card")
+        discardedCards.remove()
+        dealersFirstCardEl.style.display = "initial"
+    }
+    
+}
+
+function checkRecord() {
+    if (localStorage.getItem("recordvalue") < player.chips) {
+        localStorage.setItem("recordowner", JSON.stringify(player.name));
+        localStorage.setItem("recordvalue", JSON.stringify(player.chips));
+        message = "Şimdiye kadar kazandığınız en yüksek değer bu! Bir oyun daha?";
+        recordOwner = localStorage.getItem("recordowner");
+        recordValue = parseFloat(localStorage.getItem("recordvalue"));
+        recordEl.textContent = "Rekor: " + JSON.parse(recordOwner) + " ($" + recordValue + ")";
+    }
+}
+
+function writeScore() {
+    playerEl.textContent = player.name + ": $" + player.chips;
+}

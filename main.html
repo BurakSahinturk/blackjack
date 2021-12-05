@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,16 +12,22 @@
     </header>
     <body>
         <p id="message-el">Oynayalım mı?</p>
-        <p id="cards-el"><br></p>
-        <p id="sum-el"><br></p>
+        <div class="hands" id="player-hand">
+            <img id="first-card" src="images/Card_back_01.png" alt="Card Back">
+            <img id="second-card" src="images/Card_back_01.png" alt="Card Back">
+        </div>
+        <p id="player-cards-el"><br></p>
+        <p id="player-sum-el"><br></p>
         <button id="start-btn" onclick="startGame()">OYUNA BAŞLA</button>
-        <button id="new-card-btn" onclick="newCard()">KART AL</button>
-        <br>
-        <button id="done-btn" onclick="finishGame()">TAMAM</button>
+        <button id="new-card-btn" style="display: none;" onclick="newCard()">KART AL</button>
+        <button id="done-btn" style="display: none;" onclick="finishGame()">TAMAM</button>
         <div>Pot: $<input type="number" id="pot-input" value="10"></div>
         <p id="player-el"></p>
         <p id="dealer-cards-el"></p>
         <p id="dealer-sum-el"></p>
+        <div class="hands" id="dealer-hand">
+            <img id="dealers-first-card" src="images/Card_back_01.png" alt="Card Back" style="display: initial;">
+        </div>
         <br>
         <div id="record-board">
             <p id="record-board"></p>
