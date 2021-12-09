@@ -22,18 +22,27 @@ div {
     margin: auto auto;
     display: block;
 }
+.hands {
+    height: 170px;
+    padding-left: 50px;
+}
 
 .hands > img {
     width:100px;
     margin-left: -80px;
 }
 
-#message-el {
-    font-style: italic;
+#game-controls {
+    height: 300px;
+    display: grid;
+    grid-column: auto;
 }
 
-#player-name-input {
-    margin-bottom: 5px;
+#message-el {
+    font-style: italic;
+    font-size: 40px;
+    padding: 0;
+    margin:0px 0px 20px 0px;
 }
 
 #pot-input {

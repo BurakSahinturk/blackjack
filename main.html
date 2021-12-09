@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>A Silly Ass Blackjack Game - Main Page</title>
-        <link rel="stylesheet" href="index.css">
+        <link rel="stylesheet" href="styles.css">
     </head>
     <header>
         <h1>Blackjack</h1>
@@ -13,25 +13,26 @@
     <body>
         <p id="message-el">Oynayalım mı?</p>
         <div class="hands" id="player-hand">
-            <img id="first-card" src="images/Card_back_01.png" alt="Card Back">
-            <img id="second-card" src="images/Card_back_01.png" alt="Card Back">
+            <img id="player-first-card" src="images/Card_back_01.png" alt="Card Back" style="display:initial">
+            <img id="player-second-card" src="images/Card_back_01.png" alt="Card Back" style="display:initial">
         </div>
-        <p id="player-cards-el"><br></p>
-        <p id="player-sum-el"><br></p>
-        <button id="start-btn" onclick="startGame()">OYUNA BAŞLA</button>
-        <button id="new-card-btn" style="display: none;" onclick="newCard()">KART AL</button>
-        <button id="done-btn" style="display: none;" onclick="finishGame()">TAMAM</button>
-        <div>Pot: $<input type="number" id="pot-input" value="10"></div>
-        <p id="player-el"></p>
-        <p id="dealer-cards-el"></p>
-        <p id="dealer-sum-el"></p>
+        <div id="game-controls">
+            <p id="player-sum-el"></p>
+            <p id="player-el"></p>
+            <div>Pot: $<input type="number" id="pot-input" value="10"></div>
+            <button id="start-btn">OYUNA BAŞLA</button>
+            <button id="new-card-btn" style="display: none;">KART AL</button>
+            <button id="stay-btn" style="display: none;">TAMAM</button>
+            <p id="dealer-sum-el"></p>
+        </div>
         <div class="hands" id="dealer-hand">
-            <img id="dealers-first-card" src="images/Card_back_01.png" alt="Card Back" style="display: initial;">
+            <img id="dealer-first-card" src="images/Card_back_01.png" alt="Card Back" style="display:initial">
+            <img id="dealer-second-card" src="images/Card_back_01.png" alt="Card Back" style="display:initial">
         </div>
         <br>
         <div id="record-board">
             <p id="record-board"></p>
         </div>
-        <script src="index.js"></script>
+        <script src="app.js"></script>
     </body>
 </html>
