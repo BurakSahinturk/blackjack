@@ -12,27 +12,32 @@
     </header>
     <body>
         <p id="message-el">Oynayalım mı?</p>
-        <div class="hands" id="player-hand">
-            <img id="player-first-card" src="images/Card_back_01.png" alt="Card Back" style="display:initial">
-            <img id="player-second-card" src="images/Card_back_01.png" alt="Card Back" style="display:initial">
+        <div id="main-div">
+            <div class="hands" id="hand-1">
+                <h3>Oyuncu</h3>
+                <p class="total" id="sum-el-1"><br></p>
+                <img id="player-first-card" src="images/Card_back_01.png" alt="Card Back" style="display:initial">
+                <img id="player-second-card" src="images/Card_back_01.png" alt="Card Back" style="display:initial">
+
+            </div>
+            <div id="game-controls">
+                <p id="player-el"></p>
+                <div>Pot: $<input type="number" id="pot-input" value="10"></div>
+                <button id="start-btn">OYUNA BAŞLA</button>
+                <button id="new-card-btn" style="display: none;">KART AL</button>
+                <button id="stay-btn" style="display: none;">TAMAM</button>
+            </div>
+            <div class="hands" id="hand-0">
+                <h3>Dağıtıcı</h3>
+                <p class="total" id="sum-el-0"><br></p>
+                <img id="dealer-first-card" src="images/Card_back_01.png" alt="Card Back" style="display:initial">
+                <img id="dealer-second-card" src="images/Card_back_01.png" alt="Card Back" style="display:initial">
+            </div>
         </div>
-        <div id="game-controls">
-            <p id="player-sum-el"></p>
-            <p id="player-el"></p>
-            <div>Pot: $<input type="number" id="pot-input" value="10"></div>
-            <button id="start-btn">OYUNA BAŞLA</button>
-            <button id="new-card-btn" style="display: none;">KART AL</button>
-            <button id="stay-btn" style="display: none;">TAMAM</button>
-            <p id="dealer-sum-el"></p>
-        </div>
-        <div class="hands" id="dealer-hand">
-            <img id="dealer-first-card" src="images/Card_back_01.png" alt="Card Back" style="display:initial">
-            <img id="dealer-second-card" src="images/Card_back_01.png" alt="Card Back" style="display:initial">
-        </div>
-        <br>
+<!--         <br>
         <div id="record-board">
             <p id="record-board"></p>
-        </div>
+        </div> -->
         <script src="app.js"></script>
     </body>
 </html>

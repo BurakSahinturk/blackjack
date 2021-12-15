@@ -1,88 +1,115 @@
 body {
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', Arial, sans-serif;
-    background-image: url("images/poplin.jpg");
-    background-size: cover;
-    font-weight: bold;
-    color: white;
-    text-align: center;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", Arial,
+    sans-serif;
+  background-image: url("images/poplin.jpg");
+  background-size: cover;
+  font-weight: bold;
+  color: white;
+  text-align: center;
 }
 
 header {
-    background-color: white;
-    width: 100%;
-    text-align: center;
+  background-color: white;
+  width: 100%;
+  text-align: center;
 }
 
 h1 {
-    color: black;
-    font-size: 56;
+  color: black;
+  font-size: 56;
 }
 
 div {
-    margin: auto auto;
-    display: block;
+  margin: 0;
+  display: block;
+  justify-self: center;
 }
+
+#main-div {
+  display: grid;
+  grid-template-columns: 3fr 2fr 3fr;
+  justify-content: center;
+}
+
+h3 {
+  margin-left: -80px;
+}
+
+.total {
+  margin-left: -80px;
+}
+
 .hands {
-    height: 170px;
-    padding-left: 50px;
+  height: 170px;
+  padding-left: 90px;
 }
 
 .hands > img {
-    width:100px;
-    margin-left: -80px;
+  width: 100px;
+  margin-left: -80px;
+}
+
+#hand-1 {
+  float: left;
+}
+
+#hand-0 {
+  float: right;
 }
 
 #game-controls {
-    height: 300px;
-    display: grid;
-    grid-column: auto;
+  height: 300px;
+  display: inline-block;
+  /*   display: grid;
+  grid-column: auto; */
 }
 
 #message-el {
-    font-style: italic;
-    font-size: 40px;
-    padding: 0;
-    margin:0px 0px 20px 0px;
+  font-style: italic;
+  font-size: 40px;
+  padding: 0;
+  margin: 0px 0px 20px 0px;
 }
 
 #pot-input {
-    margin-top: 5px;
-    width: 50px;
-    height: 15px;
+  margin-top: 5px;
+  width: 50px;
+  height: 15px;
 }
 
 button {
-    color: black;
-    box-shadow: 6px 10px 10px -7px #3e7327;
-    width: 150px;
-    background: linear-gradient(to bottom, #619945 5%, #72b352 100%);
-    background-color: #619945;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    font-weight: bold;
-    border: 1px solid #4b8f29;
-    display: block;
-    cursor: pointer;
-    border-radius: 8px;
-    margin: 5px auto;
-    text-align: center;
-    font-size: 18px;
+  color: black;
+  box-shadow: 6px 10px 10px -7px #3e7327;
+  width: 150px;
+  background: linear-gradient(to bottom, #619945 5%, #72b352 100%);
+  background-color: #619945;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-weight: bold;
+  border: 1px solid #4b8f29;
+  display: block;
+  cursor: pointer;
+  border-radius: 8px;
+  margin: 5px auto;
+  text-align: center;
+  font-size: 18px;
 }
 
 button:hover {
-    background: linear-gradient(to bottom, #72b352 5%, #619945 100%);
-    background-color:#72b352;
+  background: linear-gradient(to bottom, #72b352 5%, #619945 100%);
+  background-color: #72b352;
 }
 button:active {
-	position:relative;
-	top:1px;
+  position: relative;
+  top: 1px;
 }
 
-#record-board {
-    position: absolute;
-    bottom: 5px;
-    left: 0;
-    right: 0;
-    width: 300px;
-    margin: auto;
+/* #record-board {
+  position: absolute;
+  bottom: 5px;
+  left: 0;
+  right: 0;
+  width: 300px;
+  margin: auto;
 }
+ */
