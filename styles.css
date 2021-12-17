@@ -21,14 +21,13 @@ h1 {
 
 div {
   margin: 0;
+  padding: 0;
   display: block;
-  justify-self: center;
 }
 
 #main-div {
-  display: grid;
-  grid-template-columns: 3fr 2fr 3fr;
-  justify-content: center;
+  display: flex;
+  justify-content: space-around;
 }
 
 h3 {
@@ -40,35 +39,29 @@ h3 {
 }
 
 .hands {
-  height: 170px;
-  padding-left: 90px;
+  width: 29vw;
+  height: 300px;
+  padding-left: 15vw;
 }
 
 .hands > img {
-  width: 100px;
-  margin-left: -80px;
-}
-
-#hand-1 {
-  float: left;
-}
-
-#hand-0 {
-  float: right;
+  width: 17vw;
+  margin-left: -13.5vw;
 }
 
 #game-controls {
-  height: 300px;
+  width: 42vw;
+  height: 100px;
   display: inline-block;
-  /*   display: grid;
-  grid-column: auto; */
+  margin-top: 10%;
 }
 
 #message-el {
+  height: 80px;
   font-style: italic;
-  font-size: 40px;
+  font-size: 36px;
   padding: 0;
-  margin: 0px 0px 20px 0px;
+  margin: 5px 5px 0px;
 }
 
 #pot-input {
@@ -79,18 +72,18 @@ h3 {
 
 button {
   color: black;
-  box-shadow: 6px 10px 10px -7px #3e7327;
-  width: 150px;
+  box-shadow: 0.6vw 0.1vw 0.1vw -0.7vw #3e7327;
+  width: 10vw;
+  min-width: 80px;
   background: linear-gradient(to bottom, #619945 5%, #72b352 100%);
   background-color: #619945;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding: 0.5vw;
   font-weight: bold;
   border: 1px solid #4b8f29;
   display: block;
   cursor: pointer;
-  border-radius: 8px;
-  margin: 5px auto;
+  border-radius: 5px;
+  margin: 10px auto;
   text-align: center;
   font-size: 18px;
 }

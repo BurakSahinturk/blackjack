@@ -1,5 +1,5 @@
 /* Issues I've encountered:
-    1-in Game class on line 210, Game.dealerTurn() method can't be called. To fix the problem game.dealerTurn() command is used. it'll be checked if it's about the setTimeOut function or not
+    1-in Game class on line 210, Game.dealerTurn method can't be called. To fix the problem game.dealerTurn command is used. it'll be checked if it's about the setTimeOut function or not
     2- */
 
 class Card {
@@ -63,7 +63,6 @@ class Player {
     constructor() {
         this.hand = [];         //Player's cards (Oyuncu'nun elindeki kartlar)
         this.sum = 0;           //Sum of cards' values (Oyuncu'nun kartlarının değerleri toplamı)
-        this.numOfCards = 0;
         this.numOfAces = 0;
         this.numOfFaces = 0;
         this.isAlive = false;
@@ -73,9 +72,9 @@ class Player {
         this.handDivId = "#hand-" + this.id
         this.sumEl = document.getElementById("sum-el-" + this.id)
     }
+
     addCard(card) {
         this.hand.push(card);
-        this.numOfCards ++;
         this.sum += card.value;
         if (card.name === "A") {this.numOfAces ++};                                               //to check if there are any Aces in the hand to modify the value as either 11 or 1 //(As var mı diye kontrol etmek amacıyla Player attribute, ki Aslar 1 mi yoksa 11 değerini mi alacaklar belirlenebilsin)
         if (card.name === "J" || card.name === "Q" || card.name === "K") { this.numOfFaces ++};
@@ -88,18 +87,19 @@ class Player {
 
     isBJ() {
         if (this.sum === 21 && this.numOfFaces === 1 && this.numOfAces === 1) {return true}     //Checks blackjack only a combination of a face and an ace counts as BJ //(Sadece resimli kart varsa blackjack sayılır)
-    }
+    };
+
     calculateSum() {           // Calculates the sum of cards in the hand and shows it on the page //(Eldeki kartların değerlerini toplar ve bunu sayfada gösterir)
         if (this.sum>21 && this.numOfAces>0) {      //If sum is over 21 and there is an ace in the hand decreases the sum by 10 to make the ace count as "1" //(Toplam değer 21'in üstündeyse ve elde as varsa, toplamdan 10 azaltılır)
             this.sum -= 10;
             this.numOfAces --;
         };
         this.sumEl.innerText = "Toplam: " + this.sum; // "Total: " + this.sum;
-    }
+    };
+
     reset() {
         this.hand = [];
         this.sum = 0;
-        this.numOfCards = 0;
         this.numOfAces = 0;
         this.numOfFaces = 0;
         this.isAlive = true;
@@ -114,16 +114,19 @@ class Table {
             var discardedCards = document.querySelector(".added-card");
             discardedCards.remove();
         }
-    }
+    };
+
     hideStarterCards() {
         playerFirstCardEl.style.display = "none";
         playerSecondCardEl.style.display = "none";
         dealerFirstCardEl.style.display = "none";
         dealerSecondCardEl.style.display = "none";      //Havem't used a loop because maybe I can use it on React.js later? //(Belki proje react.js'de çalışılır diyerek loop kullanılmadı)
-    }
+    };
+
     writeScore() {
         playerEl.textContent = player.name + ": $" + player.chips;
-    }
+    };
+
     toggleButtonsOn() {
         startButton.style.display = "none";
         newCardButton.style.display = "";
@@ -134,24 +137,28 @@ class Table {
         startButton.style.display = "";
         newCardButton.style.display = "none";
         stayButton.style.display = "none";
-    }
+    };
+
     releasePot() {
         potEl.removeAttribute("disabled");
-    }
+    };
+
     lockPot() {
         potEl.setAttribute("disabled", "");
-    }
+    };
+
     finish() {
         this.toggleButtonsOff();
         potEl.removeAttribute("disabled"); //Release Pot input (Bahis girişini kapatır)
         playerEl.textContent = player.name + ": $" + player.chips; //Show current score (Oyuncu'nun mevcut kazancını gösterir)
-    }
+    };
 }
 
 class Game {
     constructor() {
         this.numOfPlayers = 1  //Hardcoded 1 for now but obviously will be changed if multiplayer support is added
-    }
+    };
+
     start() {
         pot = parseFloat(potEl.value, 10);
         if (pot < 0 ) {
@@ -195,19 +202,19 @@ class Game {
             table.finish();
         }
     }
-    playerTaps() {
+    playerTaps = () => {
         if (player.isAlive && player.sum !== 21) {
             player.addCard(deck.drawCard());
             this.render();
         };
     };
 
-    dealerTurn(){
+    dealerTurn = () => {
         function dealerTaps() {
             message("Dealer kart çekiyor")                  //"Dealer is picking cards"
             dealer.addCard(deck.drawCard(),);
             dealer.calculateSum();
-            setTimeout(game.dealerTurn(),1000);           // Easy there cowboy! Fix this bs! check bind() call() or whatever
+            setTimeout(game.dealerTurn,1000);  // Easy there cowboy! Fix this bs! check bind() call() or whatever
         };
         function dealerWaves() {
             if (dealer.sum<player.sum || dealer.sum>21) {
@@ -271,11 +278,6 @@ const potEl = document.getElementById("pot-input")
 const playerEl = document.getElementById("player-el");
 function message(string) {messageEl.textContent = string;};
 
-//Buttons:
-const startButton = document.getElementById("start-btn");       //Yeni oyun butonu
-const stayButton = document.getElementById("stay-btn");         //Tamam deme butonu
-const newCardButton = document.getElementById("new-card-btn");  //Kart isteme butonu
-
 //Placeholder cards: (Masada başlangıçtaki kart görselleri)
 const dealerFirstCardEl = document.getElementById("dealer-first-card");
 const playerFirstCardEl = document.getElementById("player-first-card");
@@ -293,6 +295,11 @@ let deck = new Deck; //Is naming the class objects as lowercase class names a go
 let table = new Table;
 let game = new Game;
 playerEl.textContent = player.name + ": $" + player.chips;
+
+//Buttons:
+const startButton = document.getElementById("start-btn");       //Yeni oyun butonu
+const stayButton = document.getElementById("stay-btn");         //Tamam deme butonu
+const newCardButton = document.getElementById("new-card-btn");  //Kart isteme butonu
 
 startButton.addEventListener('click', () => {game.start()}) //Start the game //(Oyunu başlat)
 newCardButton.addEventListener('click', () => {game.playerTaps()}) //Human player draws a new card //(İnsan oyuncu yeni bir kart çeker)
